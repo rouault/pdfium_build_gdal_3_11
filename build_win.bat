@@ -4,7 +4,7 @@ set PATH=%CD%\depot_tools;%PATH%
 set DEPOT_TOOLS_WIN_TOOLCHAIN=0
 set DEPOT_TOOLS_URL=https://chromium.googlesource.com/chromium/tools/depot_tools.git
 set PDFIUM_URL=https://pdfium.googlesource.com/pdfium.git
-set REV=chromium/6677
+set REV=chromium/7047
 set INSTALL_DIR=%CD%\install
 
 REM Checkout
@@ -17,6 +17,9 @@ call git apply --ignore-whitespace ..\code.patch
 cd build
 call git apply --ignore-whitespace ..\..\build_win.patch
 cd ..
+cd base\allocator\partition_allocator
+call git apply --ignore-whitespace ..\..\..\..\partition_allocator.patch
+cd ..\..\..
 mkdir out
 cd out
 mkdir Release

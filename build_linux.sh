@@ -6,9 +6,10 @@ DEPOT_TOOLS_URL="https://chromium.googlesource.com/chromium/tools/depot_tools.gi
 DEPOT_TOOLS_DIR="$PWD/depot_tools"
 PDFIUM_URL="https://pdfium.googlesource.com/pdfium.git"
 PDFIUM_DIR="$PWD/pdfium"
-REV="chromium/6677"
+REV="chromium/7047"
 PATCH_1="$PWD/code.patch"
 PATCH_2="$PWD/build_linux.patch"
+PATCH_3="$PWD/partition_allocator.patch"
 ARGS="$PWD/args_release_linux.gn"
 BUILD_DIR="$PDFIUM_DIR/output/Release"
 INSTALL_DIR="$PWD/install"
@@ -18,7 +19,7 @@ if [ ! -d "$DEPOT_TOOLS_DIR" ]; then
 else 
   (cd "$DEPOT_TOOLS_DIR"; git checkout main; git pull)
 fi
-(cd "$DEPOT_TOOLS_DIR"; git checkout f5e10923392588205925c036948e111f72b80271)
+(cd "$DEPOT_TOOLS_DIR"; git checkout 85ec2718b5a29990c7eb67778348c9f76a00f392)
 export PATH="$DEPOT_TOOLS_DIR:$PATH"
 
 # Checkout sources
@@ -29,6 +30,7 @@ gclient sync --revision="$REV"
 cd "$PDFIUM_DIR"
 git apply "$PATCH_1"
 (cd build; git apply "$PATCH_2")
+(cd base/allocator/partition_allocator; git apply "$PATCH_3")
 
 # Build
 mkdir -p "$BUILD_DIR"

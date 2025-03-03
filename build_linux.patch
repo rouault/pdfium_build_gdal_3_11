@@ -1,8 +1,8 @@
 diff --git a/config/BUILDCONFIG.gn b/config/BUILDCONFIG.gn
-index a373e55a3..2b7372250 100644
+index c2212c73c..ce031ab75 100644
 --- a/config/BUILDCONFIG.gn
 +++ b/config/BUILDCONFIG.gn
-@@ -366,10 +366,10 @@ if (is_win) {
+@@ -386,10 +386,10 @@ if (is_apple) {
  }
  
  if (is_posix) {
@@ -17,3 +17,16 @@ index a373e55a3..2b7372250 100644
  }
  
  if (is_fuchsia) {
+diff --git a/config/compiler/BUILD.gn b/config/compiler/BUILD.gn
+index ae6cbc24e..ce88fdf78 100644
+--- a/config/compiler/BUILD.gn
++++ b/config/compiler/BUILD.gn
+@@ -631,7 +631,7 @@ config("compiler") {
+     # TODO(crbug.com/376278218): This causes segfault on Linux ARM builds.
+     if (is_linux && !llvm_android_mainline && current_cpu != "arm" &&
+         default_toolchain != "//build/toolchain/cros:target") {
+-      cflags += [ "-Wa,--crel,--allow-experimental-crel" ]
++      # cflags += [ "-Wa,--crel,--allow-experimental-crel" ]
+     }
+   }
+ 
